@@ -63,7 +63,6 @@ public class Authentication {
         }
 
         if (role != null) {
-            // Default status must be PENDING as required
             boolean isSuccess = userDao.registerUser(user, pass, role, "PENDING");
             if (isSuccess) {
                 System.out.println("Registration successful! Status is PENDING approval.");
@@ -86,6 +85,12 @@ public class Authentication {
                 return;
             }
             System.out.println("\nLogin Successful! Welcome, " + loggedInUser.username() + " (" + loggedInUser.roles() + ")");
+
+            if (loggedInUser.roles().equalsIgnoreCase("Admin")) {
+                AdminMenu.showMenu(sc);
+            } else {
+                System.out.println("Dashboard for " + loggedInUser.roles() + " is under construction.");
+            }
         } else {
             System.out.println("Invalid username or password!");
         }
