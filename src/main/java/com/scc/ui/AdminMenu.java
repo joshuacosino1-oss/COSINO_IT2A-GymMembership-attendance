@@ -87,4 +87,4 @@ public class AdminMenu {
             System.out.println("Failed to approve user. Please verify the User ID.");
         }
     }
-}1
+}
