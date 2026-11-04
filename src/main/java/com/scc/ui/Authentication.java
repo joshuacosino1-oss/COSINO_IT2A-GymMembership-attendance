@@ -43,20 +43,26 @@ public class Authentication {
         System.out.print("Enter password: ");
         String pass = sc.nextLine();
 
-        System.out.println("Select Role: [1] Admin | [2] Staff | [3] Member");
+        System.out.println("Select Role: [1] Admin | [2] Staff | [3] Member | [4] Teacher | [5] Student");
         int roleChoice = sc.nextInt();
         sc.nextLine(); // Consume newline
 
         String role = null;
         switch (roleChoice) {
             case 1:
-                role = "Admin";
+                role = "ADMIN";
                 break;
             case 2:
-                role = "Staff";
+                role = "STAFF";
                 break;
             case 3:
-                role = "Member";
+                role = "MEMBER";
+                break;
+            case 4:
+                role = "TEACHER";
+                break;
+            case 5:
+                role = "STUDENT";
                 break;
             default:
                 System.out.println("Invalid role selected!");
@@ -86,8 +92,8 @@ public class Authentication {
             }
             System.out.println("\nLogin Successful! Welcome, " + loggedInUser.username() + " (" + loggedInUser.roles() + ")");
 
-            if (loggedInUser.roles().equalsIgnoreCase("Admin")) {
-                AdminMenu.showMenu(sc);
+            if (loggedInUser.roles().equalsIgnoreCase("ADMIN")) {
+                AdminMenu.showMenu(sc, loggedInUser); // Gi-apil dinhi ang duha ka parameters (scanner ug logged-in user)
             } else {
                 System.out.println("Dashboard for " + loggedInUser.roles() + " is under construction.");
             }
