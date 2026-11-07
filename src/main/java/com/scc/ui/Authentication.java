@@ -1,5 +1,6 @@
 package com.scc.ui;
 
+import com.scc.dao.ActivityLogDao;
 import com.scc.dao.UserDao;
 import com.scc.model.User;
 
@@ -8,6 +9,7 @@ import java.util.Scanner;
 public class Authentication {
     private static final Scanner sc = new Scanner(System.in);
     private static final UserDao userDao = new UserDao();
+    private static final ActivityLogDao logDao = new ActivityLogDao();
 
     public static void start() {
         while (true) {
@@ -90,10 +92,13 @@ public class Authentication {
                 System.out.println("Login Denied: Your account is still PENDING approval.");
                 return;
             }
+
+            logDao.logAction(loggedInUser.id(), "LOGIN", "User " + loggedInUser.username() + " (ID: " + loggedInUser.id() + ") logged in.");
+
             System.out.println("\nLogin Successful! Welcome, " + loggedInUser.username() + " (" + loggedInUser.roles() + ")");
 
             if (loggedInUser.roles().equalsIgnoreCase("ADMIN")) {
-                AdminMenu.showMenu(sc, loggedInUser); // Gi-apil dinhi ang duha ka parameters (scanner ug logged-in user)
+                AdminMenu.showMenu(sc, loggedInUser);
             } else {
                 System.out.println("Dashboard for " + loggedInUser.roles() + " is under construction.");
             }
